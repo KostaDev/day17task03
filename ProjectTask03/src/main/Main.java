@@ -1,5 +1,6 @@
 package main;
 
+import controller.Controller;
 import domain.User;
 import util.RoleUtil;
 
@@ -18,7 +19,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         int operation = scanner.nextInt();
-
+        Controller.getInstance().chooseOperation(operation);
 
     }
 }
