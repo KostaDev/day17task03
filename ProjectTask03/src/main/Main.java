@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-<<<<<<< HEAD
+
         User admin = initUser();
         User user = login();
         if (validateAdmin(admin)){
@@ -16,9 +16,6 @@ public class Main {
         }
 
 
-=======
-    	User admin = new User("kosta","kostic","Kosta123","mojasifra", RoleUtil.ADMIN);
->>>>>>> main
         System.out.println("Welcome: "+admin.getIme());
         System.out.println("Choose what woul you like to do: ");
         System.out.println("To add new user, press 1");
@@ -38,6 +35,7 @@ public class Main {
              Controller.getInstance().chooseOperation(operation);
         }
         
+
     }
 
     private static User login() {
@@ -49,6 +47,7 @@ public class Main {
             numberOfTries--;
         }
         return  null;
+
 
 
     }
@@ -67,6 +66,6 @@ public class Main {
     }
 
     private static User initUser() {
-        return new User("kosta","kostic","Kosta123", RoleUtil.ADMIN);
+        return new User("kosta","kostic", "koki","Kosta123", RoleUtil.ADMIN);
     }
 }
