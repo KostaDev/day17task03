@@ -7,13 +7,13 @@ import java.util.List;
 
 public  class UserRepository {
     private static UserRepository instance;
-    private static List<User> userList;
+    private  List<User> userList;
 
     private UserRepository() {
         userList = new ArrayList<>();
     }
 
-    public static List<User> getUserList() {
+    public  List<User> getUserList() {
         return userList;
     }
 

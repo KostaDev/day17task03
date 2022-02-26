@@ -60,13 +60,21 @@ public class Crud {
 	public static void showUser() {
 		System.out.println("Enter username: ");
 		String usernameSearch = s.nextLine();
+
+		User user = findUser(usernameSearch);
+		System.out.println( user);
+	}
+
+	public static User findUser(String usernameSearch) {
 		for(User users : UserRepository.getInstance().getUserList()) {
 			if(users.getUsername().equals(usernameSearch)) {
-				System.out.println(users);
+				return users;
+
 			}
 		}
+		return null;
 	}
-	
+
 	public static void editUser() {
 		User user = null;
 		System.out.println("Enter username: ");
@@ -151,4 +159,13 @@ public class Crud {
 		return answer;
 	}
 
+	public static User logIn(String uName, String pass) {
+		User logedUser = findUser(uName);
+		if (logedUser!=null){
+			if (logedUser.getPassword().equals(pass))
+				return logedUser;
+		}
+
+		return null;
+	}
 }

@@ -1,22 +1,30 @@
 package main;
 
 import controller.Controller;
+import crud.Crud;
 import domain.User;
+import repository.UserRepository;
 import util.RoleUtil;
 
 import java.util.Scanner;
 
 public class Main {
+    static{
+        initUser();
+    }
+
+    static User user = login();
     public static void main(String[] args) {
 
-        User admin = initUser();
-        User user = login();
-        if (validateAdmin(admin)){
 
+        if (validateAdmin(user)){
+            doAdminOperations();
         }
 
+    }
 
-        System.out.println("Welcome: "+admin.getIme());
+    private static void doAdminOperations() {
+        System.out.println("Welcome: "+user.getIme());
         System.out.println("Choose what woul you like to do: ");
         System.out.println("To add new user, press 1");
         System.out.println("To see all users, press 2");
@@ -28,21 +36,20 @@ public class Main {
         int operation = scanner.nextInt();
         Controller.getInstance().chooseOperation(operation);
         while(operation !=0) {
-        	 System.out.println("Choose what woul you like to do: ");
-        	 operation = scanner.nextInt();
-             Controller.getInstance().chooseOperation(operation);
+            System.out.println("Choose what woul you like to do: ");
+            operation = scanner.nextInt();
+            Controller.getInstance().chooseOperation(operation);
         }
-
-
     }
 
     private static User login() {
         Scanner scanner = new Scanner(System.in);
         int numberOfTries=4;
-        while (numberOfTries>0){
+        while (numberOfTries>=0){
             User user = enterUserNameAndPassword(scanner);
-            String userName = scanner.next();
+            if (user!=null) return user;
             numberOfTries--;
+            System.out.println("Ostalo Vam je jos: "+numberOfTries+" pokusaja");
         }
         return  null;
 
@@ -55,15 +62,16 @@ public class Main {
         String uName = scanner.next();
         System.out.println("Enter password: ");
         String pass = scanner.next();
+        return Crud.logIn(uName,pass);
 
-        return null;
     }
 
     private static boolean validateAdmin(User admin) {
         return admin.getRole()==RoleUtil.ADMIN;
     }
 
-    private static User initUser() {
-        return new User("kosta","kostic", "koki","Kosta123", RoleUtil.ADMIN);
+    private static void initUser() {
+        User user = new  User("kosta","kostic", "koki","Kosta123", RoleUtil.ADMIN);
+        UserRepository.getInstance().getUserList().add(user);
     }
 }
