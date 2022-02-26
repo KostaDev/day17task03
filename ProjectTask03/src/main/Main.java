@@ -23,10 +23,8 @@ public class Main {
         System.out.println("To see specific user, press 3");
         System.out.println("To edit user, press 4");
         System.out.println("To delete, press 5");
-       
-        
         Scanner scanner = new Scanner(System.in);
-        
+
         int operation = scanner.nextInt();
         Controller.getInstance().chooseOperation(operation);
         while(operation !=0) {
@@ -34,7 +32,7 @@ public class Main {
         	 operation = scanner.nextInt();
              Controller.getInstance().chooseOperation(operation);
         }
-        
+
 
     }
 
