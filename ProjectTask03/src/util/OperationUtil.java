@@ -2,7 +2,7 @@ package util;
 
 
 public class OperationUtil {
-  // CREATE_NEW_USER,SHOW_ALL_USERS,SHOW_USER,EDIT_USER,DELETE_USER;
+ 
 	public final static int CREATE_NEW_USER = 1;
 	public final static int SHOW_ALL_USERS = 2;
 	public final static int SHOW_USER = 3;
