@@ -8,7 +8,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        User admin = new User("kosta","kostic","Kosta123", RoleUtil.ADMIN);
+        User admin = initUser();
+        User user = login();
+        if (validateAdmin(admin)){
+
+        }
+
+
         System.out.println("Welcome: "+admin.getIme());
         System.out.println("Choose what woul you like to do: ");
         System.out.println("To add new user, press 1");
@@ -21,5 +27,35 @@ public class Main {
         int operation = scanner.nextInt();
         Controller.getInstance().chooseOperation(operation);
 
+    }
+
+    private static User login() {
+        Scanner scanner = new Scanner(System.in);
+        int numberOfTries=4;
+        while (numberOfTries>0){
+            User user = enterUserNameAndPassword(scanner);
+            String userName = scanner.next();
+            numberOfTries--;
+        }
+        return  null;
+
+
+    }
+
+    private static User enterUserNameAndPassword(Scanner scanner) {
+        System.out.println("Enter user Name: ");
+        String uName = scanner.next();
+        System.out.println("Enter password: ");
+        String pass = scanner.next();
+
+        return null;
+    }
+
+    private static boolean validateAdmin(User admin) {
+        return admin.getRole()==RoleUtil.ADMIN;
+    }
+
+    private static User initUser() {
+        return new User("kosta","kostic","Kosta123", RoleUtil.ADMIN);
     }
 }
