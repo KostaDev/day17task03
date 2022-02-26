@@ -25,18 +25,20 @@ public class Crud {
 		System.out.println("Enter user password: ");
 		String password = s.nextLine();
 		
-	//	System.out.println("Enter user role: ");
-	//	int role = s.nextInt();
-	//	RoleUtil newRole = RoleUtil.ADMIN;
+		System.out.println("Enter user role (1-ADMIN, 2-EDITOR) : ");
+		int role = s.nextInt();
+
+
 		
 		
 	try {
 		if((!exists(username)) & startsWithLetter(password) & containsNumber(password)) {
 			System.out.println("Confirm your password please: ");
-			String passwordConfirm = s.nextLine();
+			Scanner s2 =new Scanner(System.in);
+			String passwordConfirm = s2.nextLine();
 			if(passwordConfirm.equals(password)) {
 				
-				User newUser = new User(name, surname, username, password, RoleUtil.USER);
+				User newUser = new User(name, surname, username, password, role);
 				UserRepository.getInstance().getUserList().add(newUser);
 				System.out.println("Added new User "+ name + " " + surname);
 				

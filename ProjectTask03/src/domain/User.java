@@ -1,16 +1,14 @@
 package domain;
 
-import util.RoleUtil;
-
 public class User {
 
 	private String ime;
 	private String prezime;
 	private String username;
 	private final String password;
-	private RoleUtil role;
+	private int role;
 	
-	public User(String ime, String prezime, String username, String password, RoleUtil role) {
+	public User(String ime, String prezime, String username, String password, int role) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -41,7 +39,7 @@ public class User {
 	}
 
 
-	public RoleUtil getRole() {
+	public int getRole() {
 		return role;
 	}
 	
@@ -60,14 +58,23 @@ public class User {
 	}
 
 
-	public void setRole(RoleUtil role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
-
+	private String roleName(int r){
+		String returnString="N/A";
+		switch (r){
+			case 1: returnString= "ADMIN";
+			break;
+			case 2:returnString= "EDITOR";
+			break;
+		}
+		return returnString;
+	}
 
 	@Override
 	public String toString() {
-		return "User: ime=" + ime + ", prezime=" + prezime + ", username=" + username + ", role=" + role;
+		return "User: ime=" + ime + ", prezime=" + prezime + ", username=" + username + ", role=" +roleName(role);
 	}
 	
 
