@@ -3,6 +3,7 @@ package crud;
 import java.util.Scanner;
 
 import domain.User;
+import exceptions.WrongInputException;
 import repository.UserRepository;
 import util.RoleUtil;
 
@@ -29,7 +30,7 @@ public class Crud {
 	//	RoleUtil newRole = RoleUtil.ADMIN;
 		
 		
-		
+	try {	
 		if((!exists(username)) & startsWithLetter(password) & containsNumber(password)) {
 			System.out.println("Confirm your password please: ");
 			String passwordConfirm = s.nextLine();
@@ -41,14 +42,17 @@ public class Crud {
 				
 			}
 			else {
-				System.out.println("Wrong password confirmation! ");
+				throw new WrongInputException("Wrong password confirmation! ");
 			}
 			
 		}
 		else {
-			System.out.println("Wrong input!");
+			throw new WrongInputException("Wrong input! Username occupied or password not valid!");
 		}
-		
+	}
+	catch(WrongInputException ex) {
+		System.out.println(ex.getMessage());}
+	
 	}
 	
 	public static void showAll() {
@@ -71,23 +75,23 @@ public class Crud {
 		User user = null;
 		System.out.println("Enter username: ");
 		String usernameSearch = s.nextLine();
+		
+		try {
+			
 		for(User users : UserRepository.getInstance().getUserList()) {
 			if(users.getUsername().equals(usernameSearch)) {
 				user = users;
 			}
 			else {
-				System.out.println("There is no User with this username!");
-				return;
+				throw new WrongInputException("There is no User with this username!");
 			}
 		}
 		
-		System.out.println("Enter user name: ");
+		System.out.println("Enter new user name: ");
 		String name = s.nextLine();
-		
-		System.out.println("enter user surname: ");
+		System.out.println("enter new user surname: ");
 		String surname = s.nextLine();
-		
-		System.out.println("Enter user username: ");
+		System.out.println("Enter new user username: ");
 		String username = s.nextLine();
 		
 		if((!exists(username)) || (exists(username) & user.getUsername().equals(username))) {
@@ -98,25 +102,35 @@ public class Crud {
 		}
 		
 		else {
-			System.out.println("This username already exists!");
+			throw new WrongInputException("This username already exists!");
+			}
 		}
 		
+		catch(WrongInputException ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
 	
 	public static void deleteUser() {
 		User user = null;
 		System.out.println("Enter username: ");
 		String usernameSearch = s.nextLine();
+		try {
+		
 		for(User users : UserRepository.getInstance().getUserList()) {
 			if(users.getUsername().equals(usernameSearch)) {
 				user = users;
 			}
 			else {
-				System.out.println("There is no User with this username!");
+				throw new WrongInputException("There is no User with this username!");
 			}
 		}
 		UserRepository.getInstance().getUserList().remove(user);
 		System.out.println("Deleted user " + user.getIme() + " " + user.getPrezime());
+		}
+		catch(WrongInputException ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
 	
 	public static boolean exists(String username) {
